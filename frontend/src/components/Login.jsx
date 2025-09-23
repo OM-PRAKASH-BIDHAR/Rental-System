@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Login = () => {
+const Login =() => {
 
   const[isLoginMode, setIsLoginMode] = useState(true);
   return (
