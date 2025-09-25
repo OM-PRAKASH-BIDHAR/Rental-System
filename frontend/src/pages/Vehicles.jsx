@@ -1,72 +1,32 @@
-import React, { useState } from "react";
+// src/pages/Vehicles.jsx
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Vehicles = () => {
-  const [filter, setFilter] = useState("all");
-
-  // Dummy vehicle data (replace later with API)
-  const vehicles = [
-    { id: 1, name: "Sedan Car", type: "car", price: "₹1500/day", img: "https://images.unsplash.com/photo-1549921296-3b4a4f089a3e" },
-    { id: 2, name: "Sport Bike", type: "bike", price: "₹800/day", img: "https://images.unsplash.com/photo-1600682362302-3f58b4c1d21a" },
-    { id: 3, name: "SUV", type: "car", price: "₹2500/day", img: "https://images.unsplash.com/photo-1617814074234-4e44f9465d98" },
-    { id: 4, name: "Cruiser Bike", type: "bike", price: "₹1000/day", img: "https://images.unsplash.com/photo-1605559424843-9d1cffe44546" },
-    { id: 5, name: "Luxury Car", type: "car", price: "₹4000/day", img: "https://images.unsplash.com/photo-1605559424973-4b1d9e3e1f6c" },
+  const vehicleList = [
+    { id: 1, type: "Car", name: "Toyota Corolla" },
+    { id: 2, type: "Bike", name: "Yamaha R15" },
+    { id: 3, type: "Car", name: "Honda Civic" },
+    { id: 4, type: "Bike", name: "KTM Duke" },
   ];
 
-  // Filter vehicles based on selection
-  const filteredVehicles =
-    filter === "all" ? vehicles : vehicles.filter((v) => v.type === filter);
-
   return (
-    <div className="max-w-7xl mx-auto px-6 py-16">
-      <h1 className="text-3xl font-bold text-center mb-8">Available Vehicles</h1>
-
-      {/* Filter Buttons */}
-      <div className="flex justify-center gap-4 mb-8">
-        <button
-          onClick={() => setFilter("all")}
-          className={`px-4 py-2 rounded-full ${
-            filter === "all" ? "bg-cyan-600 text-white" : "bg-gray-200"
-          }`}
-        >
-          All
-        </button>
-        <button
-          onClick={() => setFilter("car")}
-          className={`px-4 py-2 rounded-full ${
-            filter === "car" ? "bg-cyan-600 text-white" : "bg-gray-200"
-          }`}
-        >
-          Cars
-        </button>
-        <button
-          onClick={() => setFilter("bike")}
-          className={`px-4 py-2 rounded-full ${
-            filter === "bike" ? "bg-cyan-600 text-white" : "bg-gray-200"
-          }`}
-        >
-          Bikes
-        </button>
-      </div>
-
-      {/* Vehicles Grid */}
-      <div className="grid md:grid-cols-3 gap-8">
-        {filteredVehicles.map((vehicle) => (
+    <div className="min-h-screen bg-cyan-50 p-8">
+      <h1 className="text-3xl font-bold mb-6 text-center">Available Vehicles</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {vehicleList.map((vehicle) => (
           <div
             key={vehicle.id}
-            className="bg-white shadow-md rounded-lg overflow-hidden"
+            className="bg-white p-4 rounded-2xl shadow hover:shadow-lg transition"
           >
-            <img
-              src={vehicle.img}
-              alt={vehicle.name}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-xl font-semibold">{vehicle.name}</h3>
-              <p className="text-gray-600">{vehicle.price}</p>
-              <button className="mt-3 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-700">
-                Rent Now
-              </button>
-            </div>
+            <h2 className="text-xl font-semibold">{vehicle.name}</h2>
+            <p className="text-gray-600">{vehicle.type}</p>
+            <Link
+              to="/dashboard"
+              className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+            >
+              Book Now
+            </Link>
           </div>
         ))}
       </div>

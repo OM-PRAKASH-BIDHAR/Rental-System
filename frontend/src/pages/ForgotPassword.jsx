@@ -1,12 +1,11 @@
-// src/components/ForgetPassword.jsx
 import React from "react";
 
-const ForgetPassword = () => {
+const ForgotPassword = () => {
   return (
-    <div className="w-[430px] bg-white p-8 rounded-2xl shadow-lg">
+    <div className="w-[430px] bg-white p-8 rounded-2xl shadow-lg mx-auto mt-20">
       {/* Header Title */}
       <div className="flex justify-center mb-4">
-        <h2 className="text-3xl font-semibold text-center">Forget Password</h2>
+        <h2 className="text-3xl font-semibold text-center">Forgot Password</h2>
       </div>
 
       {/* Form */}
@@ -33,4 +32,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default ForgotPassword;

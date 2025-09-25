@@ -1,72 +1,39 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-import Navbar from "./components/layout/Navbar";
-import Login from "./components/Login";
-import ForgetPassword from "./components/ForgetPassword";
+import Login from "./pages/Login";
+import ForgetPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Vehicles from "./pages/Vehicles";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import AdminDashboard from "./pages/Admin/Index";
+import CustomerDashboard from "./pages/Dashboard/CustomerDashboard";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 
-const AppContent = () => {
-  const location = useLocation();
-
-  // Dummy auth (replace later)
-  const isAuthenticated = true;      // true / false
-  const userRole = "admin";          // "customer" | "admin"
-
-  // Hide navbar on login / forget-password
-  const hideNavbar = ["/login", "/forget-password"].includes(location.pathname);
-
+const App = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
-      {!hideNavbar && <Navbar isAuthenticated={isAuthenticated} userRole={userRole} />}
+    <Router>
+      <Routes>
+        {/* Default route → Login */}
+        <Route path="/" element={<Navigate to="/login" />} />
 
-      <div className={`${!hideNavbar ? "pt-16" : ""}`}>
-        <Routes>
-          {/* Redirect root */}
-          <Route path="/" element={<Navigate to="/home" />} />
+        {/* Auth Pages */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgetPassword />} />
 
-          {/* Public routes */}
-          <Route path="/home" element={<Home />} />
-          <Route path="/vehicles" element={<Vehicles />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forget-password" element={<ForgetPassword />} />
+        {/* Customer Dashboard */}
+        <Route path="/customer-dashboard" element={<CustomerDashboard />} />
 
-          {/* Protected Customer Dashboard */}
-          <Route
-            path="/dashboard"
-            element={
-              isAuthenticated && userRole === "customer" ? (
-                <Dashboard />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
+        {/* Admin Dashboard */}
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
-          {/* Protected Admin Dashboard */}
-          <Route
-            path="/admin"
-            element={
-              isAuthenticated && userRole === "admin" ? (
-                <AdminDashboard />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
-        </Routes>
-      </div>
-    </div>
+        {/* Optional pages */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/vehicles" element={<Vehicles />} />
+
+        {/* Catch all → redirect to login */}
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </Router>
   );
 };
-
-const App = () => (
-  <Router>
-    <AppContent />
-  </Router>
-);
 
 export default App;
